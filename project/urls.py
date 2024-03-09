@@ -39,7 +39,7 @@ urlpatterns = [
 
     #? Project
     path("api/",include([
-        path("v1/users/", include("users.urls"))
+        path("v1/users/", include("user_auth.urls"))
     ]))
 
 ]

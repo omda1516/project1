@@ -38,15 +38,18 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "hospital_app",
+    #? Project
+    "user_auth",
+    "doctor",
+    "petient",
+    "reception",
+    "pharamcy",
     # ? Third Party
     "rest_framework",
     "drf_yasg",
-    #? Project
-    "user_auth",
 ]
 
-
+AUTH_USER_MODEL = 'user_auth.HospitalUser'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -150,4 +153,4 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = 'user_auth.HospitalUser'
+

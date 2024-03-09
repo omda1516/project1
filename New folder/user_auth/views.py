@@ -11,20 +11,6 @@ from . import serializers, models
 class UserLoginView(APIView):
     permission_classes = [AllowAny]
 
-    @swagger_auto_schema(
-        operation_summary='Login endpoint',
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                "username": openapi.Schema(type=openapi.TYPE_STRING),
-                "password": openapi.Schema(type=openapi.TYPE_STRING),
-            },
-            required=[
-                "username",
-                "password"
-            ]
-        )
-    )
     def post(self, request):
         serializer = serializers.UserLoginSerializer(data=request.data)
         if serializer.is_valid():
@@ -41,10 +27,6 @@ class UserLoginView(APIView):
 
 class UserLogoutView(APIView):
     
-    @swagger_auto_schema(
-        operation_summary='Logout endpoint'
-        
-    )
     def post(self, request):
         logout(request)
         return Response({'message': 'Logout successful'}, status=status.HTTP_200_OK)
@@ -55,6 +37,10 @@ class UserSignupView(APIView):
 
     @swagger_auto_schema(
         operation_summary='Retrieve post with <id>',
+        responses={
+            200: "serializers.UserSignupSerializer()",
+            400: 'Bad Request'
+        },
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
@@ -64,7 +50,7 @@ class UserSignupView(APIView):
                 "password_confirmation": openapi.Schema(type=openapi.TYPE_STRING),
                 "first_name": openapi.Schema(type=openapi.TYPE_STRING),
                 "last_name": openapi.Schema(type=openapi.TYPE_STRING),
-                "gender": openapi.Schema(type=openapi.TYPE_STRING, enum=[q[0] for q in models.HospitalUser.GENDERS]),
+                "gender": openapi.Schema(type=openapi.TYPE_STRING, enum=[q[0] for q in models.CustomUser.GENDERS]),
             },
             required=[
                 "username",
